@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <style>
+        body{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h1{
+            font-size: 100px;
+        }
+
+        button{
+            width: 100px;
+            height: 100px;
+            cursor: pointer;
+            font-size: 30px;
+            margin-right: 5px;
+            margin-top: 20px;
+            border-radius: 10px;
+            border: solid 1px  rgb(0, 0, 0);
+        }
+
+        .btn_clc:hover{
+            background-color: rgb(214, 214, 214);
+            box-shadow: 2px 2px rgb(77, 77, 77);
+        }
+
+        input{
+            font-size: 30px;
+            padding: 10px 30px;
+            margin-top: 5px;
+            border: solid 1px rgb(0, 0, 0);
+            border-radius: 10px;
+        }
+
+        summary{
+            margin-top: 10px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>CALCULATOR</h1>
+    
+    <input type="number" id="num1" placeholder="num1">
+    <input type="number" id="num2" placeholder="num2">
+    
+
+    <div>
+        <button class="btn_clc" onclick="calculate('add')">+</button>
+        <button class="btn_clc" onclick="calculate('sub')">-</button>
+        <button class="btn_clc" onclick="calculate('mul')">*</button>
+        <button class="btn_clc" onclick="calculate('div')">/</button>
+        <button class="btn_clc" onclick="calculate('step')">x^y</button>
+        <button class="btn_clc" onclick="calculate('sqrtNum2')">x√y</button>
+        <details>
+            <summary onclick="hide()">FUNC</summary>
+            <button class="btn_clc" onclick="calculate('square')">x²</button>
+            <button class="btn_clc" onclick="calculate('sqrt')">√</button>
+            <button class="btn_clc" onclick="calculate('fact')">x!</button>
+        </details>
+    </div>
+
+    <h2 id="res">Result: </h2>
+
+    <script>
+        let flag = true;
+        function  hide(){
+            if (flag == true){
+                document.getElementById('num2').hidden = true;
+                flag = false;
+            }else if (flag == false){
+                document.getElementById('num2').hidden = false;
+                flag = true;
+            }
+        }
+
+        function calculate(opr){
+            const num1 = parseFloat(document.getElementById('num1').value);
+            const num2 = parseFloat(document.getElementById('num2').value);
+            let res;
+
+            if (isNaN(num1)){
+                alert('Enter num1!!!!!');
+            }
+
+            switch(opr){
+                case 'add':
+                    if (isNaN(num2)){
+                        alert('enter num2!!!!');
+                        return;
+                    }
+                    res = num1+num2;
+                    break;
+
+                
+                case 'sub':
+                    if (isNaN(num2)){
+                        alert('enter num2!!!!');
+                        return;
+                    }
+                    res = num1-num2;
+                    break;
+
+                
+                case 'mul':
+                    if (isNaN(num2)){
+                        alert('enter num2!!!!');
+                        return;
+                    }
+                    res = num1*num2;
+                    break;
+                
+                
+                case 'div':
+                    if (isNaN(num2)){
+                        alert('enter num2!!!!');
+                        return;
+                    if (num2 === 0){
+                        alert('num2 != 0')
+                    }
+                    }
+                    res = num1/num2;
+                    break;
+
+                case 'square':
+                    res = num1*num1
+                    break;
+
+                
+                case 'sqrt':
+                    if (num1<0){
+                        alert('asdasda');
+                        return;
+                    }
+                    res = Math.sqrt(num1);
+                    break;
+
+                case 'fact':
+                    if (num1<0){
+                        alert('asdasd');
+                        return;
+                    }
+                    res = fact(num1);
+
+                case 'step':
+                    res = Math.pow(num1,num2); 
+                    break;
+
+                case 'sqrtNum2':
+                    res = Math.pow(num1, 1/num2);
+                    break;
+            }
+
+            document.getElementById('res').innerHTML = 'Result: ' + res;
+        }
+
+        function fact(num1){
+            let res = 1;
+            for(let i = 1; i <= num1; i++){
+                res *= i;
+            }
+            return res;
+        }
+
+    </script>
+</body>
+</html>
